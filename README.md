@@ -23,7 +23,6 @@ decorative). Red means what we decide it means.
 
 1. **Local Development**:
    ```bash
-   # Simple local server for testing
    python -m http.server 8000
    # or
    npx serve .
@@ -33,27 +32,11 @@ decorative). Red means what we decide it means.
    - Upload new images to Cloudinary
    - Copy the generated URLs
    - Update HTML with new Cloudinary URLs
-   - Deploy updated HTML to Netlify
-
-3. **Performance**:
-   - Images automatically optimized by Cloudinary
-   - Static HTML/CSS served by Netlify CDN
-   - No build process required
-
-## Project Structure
-
-```
-redmeans/
-├── index.html          # Main gallery website
-├── README.md          # This documentation
-└── assets/            # Local assets (if any)
-```
+   - Push (netlify builds and deploys automatically)
 
 ## Typography
 
-- **Headers/Titles**: Manrope (Google Fonts)
-- **Numbers**: JetBrains Mono (Google Fonts)
-- **Body Text**: Manrope (Google Fonts)
+Manrope (Headers and copy), JetBrains Mono (numbers).
 
 ## Color Palette
 
@@ -73,10 +56,6 @@ redmeans/
 - **About Panel**: Project information sidebar
 - **Keyboard Navigation**: ESC to close modals
 - **Optimized Images**: Fast loading via Cloudinary
-
-## Location
-
-Leipzig, Germany
 
 ---
 
