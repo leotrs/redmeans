@@ -6,7 +6,7 @@
     <title>red means</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Manrope:wght@300;400;500;600&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --blood-red: #8b0000;
@@ -394,6 +394,32 @@
                 margin-bottom: 80px;
             }
             
+            .text-container {
+                padding: 30px 20px;
+                min-height: 250px;
+            }
+            
+            .text-content {
+                font-size: 0.8rem;
+                max-height: 150px;
+            }
+            
+            .lightbox-text {
+                font-size: 0.9rem;
+                line-height: 1.2;
+                max-height: 70vh;
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .poem-column {
+                margin-bottom: 20px;
+            }
+            
+            .grid-text-content {
+                font-size: 0.7rem;
+            }
+            
             .about-panel {
                 width: 100%;
                 right: -100%;
@@ -412,6 +438,95 @@
                 top: 10px;
                 right: 10px;
             }
+        }
+        
+        /* Text-based pieces */
+        .text-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto 30px;
+            background: var(--charcoal);
+            cursor: pointer;
+            overflow: hidden;
+            padding: 60px 80px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+        
+        .text-container:hover {
+            background: #2f3a4a;
+        }
+        
+        .text-content {
+            font-family: 'Crimson Text', serif;
+            font-size: 1rem;
+            line-height: 2;
+            color: var(--off-white);
+            text-align: center;
+            font-weight: 400;
+            letter-spacing: 1px;
+            position: relative;
+            opacity: 1;
+        }
+        
+        .text-content .preview-line {
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .text-content .preview-line:last-child::after {
+            content: '...';
+            color: var(--blood-red);
+            margin-left: 10px;
+        }
+        
+        .lightbox-text {
+            max-width: 90%;
+            max-height: 75vh;
+            overflow-y: auto;
+            font-family: 'Crimson Text', serif;
+            font-size: 1rem;
+            line-height: 1.3;
+            color: var(--off-white);
+            font-weight: 400;
+            letter-spacing: 0.2px;
+            text-align: left;
+            display: flex;
+            gap: 60px;
+            align-items: start;
+        }
+        
+        .poem-column {
+            white-space: pre-line;
+            flex: 1;
+        }
+        
+        .lightbox-text .red-word {
+            color: var(--blood-red);
+            font-weight: 400;
+        }
+        
+        .grid-text {
+            position: absolute;
+            inset: 0;
+            background: var(--charcoal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .grid-text-content {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.8rem;
+            color: var(--off-white);
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 1px;
         }
         
         /* Minimalist scrollbar */
@@ -484,6 +599,21 @@
             </h2>
             <div class="piece-number">004</div>
         </article>
+        
+        <!-- Piece 5 -->
+        <article class="piece">
+            <div class="text-container" onclick="openTextLightbox()">
+                <div class="text-content">
+                    <span class="preview-line">If God was an engineer</span>
+                    <span class="preview-line">she woulda made our forearms</span>
+                    <span class="preview-line">longer than our arms</span>
+                </div>
+            </div>
+            <h2 class="piece-title">
+                <span class="red-word">red</span> means stop
+            </h2>
+            <div class="piece-number">005</div>
+        </article>
     </main>
     
     <!-- Grid View -->
@@ -504,6 +634,16 @@
             <img src="https://res.cloudinary.com/dhk9qsnzb/image/upload/v1755939246/1000028114_1_xvqbjx.jpg" alt="004">
             <div class="grid-number">004</div>
         </div>
+        <div class="grid-item" onclick="openTextLightbox()">
+            <div class="grid-text">
+                <div class="grid-text-content">
+                    If God was an engineer<br>
+                    she woulda made our forearms<br>
+                    longer than our arms
+                </div>
+            </div>
+            <div class="grid-number">005</div>
+        </div>
     </div>
     
     <!-- Lightbox -->
@@ -511,6 +651,7 @@
         <div class="lightbox-content">
             <button class="lightbox-close" onclick="closeLightbox(event)">×</button>
             <img src="" alt="" class="lightbox-image" id="lightboxImage">
+            <div class="lightbox-text" id="lightboxText"></div>
             <div class="lightbox-title" id="lightboxTitle"></div>
         </div>
     </div>
@@ -574,10 +715,72 @@
       function openLightbox(imageSrc, title) {
         const lightbox = document.getElementById('lightbox');
         const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxText = document.getElementById('lightboxText');
         const lightboxTitle = document.getElementById('lightboxTitle');
+        
+        // Show image, hide text
+        lightboxImage.style.display = 'block';
+        lightboxText.style.display = 'none';
         
         lightboxImage.src = imageSrc;
         lightboxTitle.innerHTML = title.replace('red', '<span class="red-word">red</span>');
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function openTextLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxText = document.getElementById('lightboxText');
+        const lightboxTitle = document.getElementById('lightboxTitle');
+        
+        // Show text, hide image
+        lightboxImage.style.display = 'none';
+        lightboxText.style.display = 'flex';
+        
+        const column1 = `If God was an engineer
+she woulda made our forearms
+longer than our arms.
+My father once said.
+
+Did he know this?
+Intuit it, induced it, observed it, read it somewhere?
+Who knows, not him.
+But it seemed wise.
+
+If God were an engineer,
+she woulda made humans fertile
+at forty, when they are forearm-wise,
+and not at twenty when they are
+willingly foolish.
+
+Instead, humans change
+their children's diapers
+and their own brain's diapers
+at the same time.`;
+
+        const column2 = `If God were engineer,
+she woulda protected our hearts
+more. When doing too much,
+first we sweat, then we ache, then we cry.
+
+The body keeps going: skin sweating,
+muscles aching, mind numbing, vision blurring, lungs gasping.
+All keeps going, forearms forgotten.
+And the heart putters and whistles and heaves and stops.
+
+Stops.
+If God we're engineer,
+she woulda made the heart stronger.
+The last to fail.
+
+If, God, we were engineers,
+we woulda made the heart
+be the one that pulls all else.
+Maybe it is. Maybe it does.`;
+        
+        lightboxText.innerHTML = `<div class="poem-column">${column1}</div><div class="poem-column">${column2.replace('Stops.', '<span class="red-word">Stops.</span>')}</div>`;
+        lightboxTitle.innerHTML = '<span class="red-word">red</span> means stop';
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
       }
