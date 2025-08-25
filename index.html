@@ -557,7 +557,7 @@
     <!-- Gallery View -->
     <main class="gallery active" id="galleryView">
         <!-- Piece 1 -->
-        <article class="piece">
+        <article class="piece" id="001">
             <div class="image-container" onclick="openLightbox('https://res.cloudinary.com/dhk9qsnzb/image/upload/v1755517707/001_tomato_r8hx2v.jpg', 'red means patience')">
                 <img src="https://res.cloudinary.com/dhk9qsnzb/image/upload/v1755517707/001_tomato_r8hx2v.jpg" alt="red means patience">
             </div>
@@ -568,7 +568,7 @@
         </article>
         
         <!-- Piece 2 -->
-        <article class="piece">
+        <article class="piece" id="002">
             <div class="image-container" onclick="openLightbox('https://res.cloudinary.com/dhk9qsnzb/image/upload/v1755517710/002_pole_c64jd7.jpg', 'red means decorative')">
                 <img src="https://res.cloudinary.com/dhk9qsnzb/image/upload/v1755517710/002_pole_c64jd7.jpg" alt="red means decorative">
             </div>
@@ -579,7 +579,7 @@
         </article>
         
         <!-- Piece 3 -->
-        <article class="piece">
+        <article class="piece" id="003">
             <div class="image-container" onclick="openLightbox('https://res.cloudinary.com/dhk9qsnzb/image/upload/v1755939237/1000028014_ciijxw.jpg', 'red means irreversible')">
                 <img src="https://res.cloudinary.com/dhk9qsnzb/image/upload/v1755939237/1000028014_ciijxw.jpg" alt="red means irreversible">
             </div>
@@ -590,7 +590,7 @@
         </article>
         
         <!-- Piece 4 -->
-        <article class="piece">
+        <article class="piece" id="004">
             <div class="image-container" onclick="openLightbox('https://res.cloudinary.com/dhk9qsnzb/image/upload/v1755939246/1000028114_1_xvqbjx.jpg', 'red means towering')">
                 <img src="https://res.cloudinary.com/dhk9qsnzb/image/upload/v1755939246/1000028114_1_xvqbjx.jpg" alt="red means towering">
             </div>
@@ -601,11 +601,11 @@
         </article>
         
         <!-- Piece 5 -->
-        <article class="piece">
+        <article class="piece" id="005">
             <div class="text-container" onclick="openTextLightbox()">
                 <div class="text-content">
                     <span class="preview-line">If God was an engineer</span>
-                    <span class="preview-line">she woulda made our forearms</span>
+                    <span class="preview-line">she wd'v made our forearms</span>
                     <span class="preview-line">longer than our arms</span>
                 </div>
             </div>
@@ -638,7 +638,7 @@
             <div class="grid-text">
                 <div class="grid-text-content">
                     If God was an engineer<br>
-                    she woulda made our forearms<br>
+                    she wd'v made our forearms<br>
                     longer than our arms
                 </div>
             </div>
@@ -739,7 +739,7 @@
         lightboxText.style.display = 'flex';
         
         const column1 = `If God was an engineer
-she woulda made our forearms
+she wd'v made our forearms
 longer than our arms.
 My father once said.
 
@@ -749,7 +749,7 @@ Who knows, not him.
 But it seemed wise.
 
 If God were an engineer,
-she woulda made humans fertile
+she wd'v made humans fertile
 at forty, when they are forearm-wise,
 and not at twenty when they are
 willingly foolish.
@@ -760,7 +760,7 @@ and their own brain's diapers
 at the same time.`;
 
         const column2 = `If God were engineer,
-she woulda protected our hearts
+she wd'v protected our hearts
 more. When doing too much,
 first we sweat, then we ache, then we cry.
 
@@ -771,11 +771,11 @@ And the heart putters and whistles and heaves and stops.
 
 Stops.
 If God we're engineer,
-she woulda made the heart stronger.
+she wd'v made the heart stronger.
 The last to fail.
 
 If, God, we were engineers,
-we woulda made the heart
+we wd'v made the heart
 be the one that pulls all else.
 Maybe it is. Maybe it does.`;
         
@@ -813,6 +813,26 @@ Maybe it is. Maybe it does.`;
           }
         }
       });
+      
+      // Hash navigation
+      function navigateToHash() {
+        const hash = window.location.hash.substring(1);
+        if (hash) {
+          const element = document.getElementById(hash);
+          if (element) {
+            setView('gallery');
+            setTimeout(() => {
+              element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+          }
+        }
+      }
+      
+      // Handle hash changes
+      window.addEventListener('hashchange', navigateToHash);
+      
+      // Navigate on page load if hash exists
+      document.addEventListener('DOMContentLoaded', navigateToHash);
       
       // Lazy load images
       const images = document.querySelectorAll('.image-container img, .grid-item img');
